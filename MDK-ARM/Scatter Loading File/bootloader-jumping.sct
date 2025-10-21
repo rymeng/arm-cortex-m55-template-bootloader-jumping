@@ -1,0 +1,12 @@
+#! armclang -E --target=arm-arm-none-eabi -mcpu=cortex-m55 -xc
+
+#define __IROM_BASE (0x18000000)
+#define __IROM_SIZE (0x00002800)
+
+LR_IROM __IROM_BASE __IROM_SIZE {
+  ER_IROM __IROM_BASE __IROM_SIZE {
+    *.o (RESET, +First)
+    *(InRoot$$Sections)
+    .ANY (+RO)
+  }
+}
